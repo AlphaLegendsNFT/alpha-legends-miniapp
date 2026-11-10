@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ALPHA LEGENDS NFT</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+*{box-sizing:border-box}
+body{
+margin:0;
+background:#090909;
+color:#fff;
+font-family:Arial,sans-serif;
+}
+header{
+text-align:center;
+padding:35px 15px;
+background:linear-gradient(135deg,#080808,#34230b);
+border-bottom:1px solid #b88a32;
+}
+h1{
+color:#f4c76b;
+font-size:32px;
+margin:10px 0;
+}
+.subtitle{color:#c9a65b}
+.badge{
+display:inline-block;
+border:1px solid #cba34e;
+border-radius:20px;
+padding:8px 16px;
+color:#f4c76b;
+}
+nav{
+display:flex;
+justify-content:center;
+gap:10px;
+padding:20px;
+flex-wrap:wrap;
+}
+button{
+background:#231b0e;
+color:#f4c76b;
+border:1px solid #98732d;
+padding:10px 15px;
+border-radius:12px;
+cursor:pointer;
+}
+button.active{background:#b88a32;color:#000}
+.grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:14px;
+padding:15px;
+max-width:900px;
+margin:auto;
+}
+.card{
+background:#171717;
+border:1px solid #6b5127;
+border-radius:15px;
+overflow:hidden;
+text-align:center;
+}
+.art{
+height:145px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:65px;
+background:radial-gradient(circle,#62451b,#111);
+}
+.card h3{color:#f4c76b}
+.card p{font-size:12px;color:#aaa}
+.rarity{color:#e7ba61;font-size:12px}
+footer{
+text-align:center;
+padding:30px;
+color:#b9a27b;
+}
+</style>
+</head>
+<body>
+
+<header>
+<div class="badge">👑 EXCLUSIVE TON NFT COLLECTION</div>
+<h1>ALPHA LEGENDS</h1>
+<p class="subtitle">Born Rare. Made Legendary.</p>
+<p>25 Exclusive Digital Collectibles</p>
+</header>
+
+<nav>
+<button class="active" onclick="filterNFT('All',this)">All</button>
+<button onclick="filterNFT('Legendary',this)">Legendary</button>
+<button onclick="filterNFT('Epic',this)">Epic</button>
+<button onclick="filterNFT('Rare',this)">Rare</button>
+<button onclick="filterNFT('Common',this)">Common</button>
+</nav>
+
+<div class="grid" id="gallery"></div>
+
+<footer>
+<p>💎 ALPHA LEGENDS — NFT Collection</p>
+<p>Marketplace Coming Soon</p>
+<p>Created by Alpha M97</p>
+<p>Preview only — NFTs not yet minted.</p>
+</footer>
+
+<script>
+const icons=["🐉","👑","⚔️","🦁","🐺","🔥","💎","🦅","🐲","🛡️","⚡","🦂","🦇","🦊","🐍","🌙","☀️","🗡️","🦋","🪐","🧿","🏆","🌌","🦄","💀"];
+const names=["Golden Dragon","Royal King","Shadow Warrior","Golden Lion","Alpha Wolf","Fire Phoenix","Diamond Guardian","Royal Eagle","Dark Dragon","Iron Knight","Thunder God","Desert Scorpion","Night Hunter","Mystic Fox","Emerald Serpent","Moon Guardian","Solar Emperor","Crystal Blade","Celestial Spirit","Cosmic Titan","Ancient Eye","Golden Champion","Galaxy Guardian","Mythic Unicorn","Shadow Reaper"];
+
+const nfts=names.map((name,i)=>({
+id:i+1,
+name,
+icon:icons[i],
+rarity:i<3?"Legendary":i<8?"Epic":i<16?"Rare":"Common"
+}));
+
+function filterNFT(type,btn){
+document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
+btn.classList.add("active");
+const gallery=document.getElementById("gallery");
+gallery.innerHTML="";
+nfts.filter(n=>type==="All"||n.rarity===type).forEach(n=>{
+const card=document.createElement("div");
+card.className="card";
+card.innerHTML=`
+<div class="art">${n.icon}</div>
+<h3>${n.name}</h3>
+<p>ALPHA LEGENDS #${String(n.id).padStart(3,"0")}</p>
+<p class="rarity">✦ ${n.rarity}</p>
+<p>Coming Soon</p>`;
+gallery.appendChild(card);
+});
+}
+
+filterNFT("All",document.querySelector("button"));
+
+if(window.Telegram&&window.Telegram.WebApp){
+Telegram.WebApp.ready();
+Telegram.WebApp.expand();
+}
+</script>
+</body>
+</html>
